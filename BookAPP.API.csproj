@@ -3,6 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="../BookAPP.Store/BookAPP.Store.csproj" />
+      <ProjectReference Include="../BookAPP.Core/BookAPP.Core.csproj" />
+      <ProjectReference Include="../BookAPP.Storage.EFCore/BookAPP.Storage.EFCore.csproj" />
+
+    </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
+  </ItemGroup>
 
 
 </Project>
