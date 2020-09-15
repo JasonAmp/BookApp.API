@@ -128,7 +128,7 @@ namespace BookAPP.API.Controllers
         }
 
 
-        /// <summary
+            /// <summary
         /// Update Author
         /// </summary>
         /// <response code="400">Bad request</response> 
@@ -164,7 +164,8 @@ namespace BookAPP.API.Controllers
         }
 
 
-        /// <summary
+        
+            /// <summary
         /// Update Book
         /// </summary>
         /// <response code="400">Bad request</response> 
