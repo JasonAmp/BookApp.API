@@ -1,26 +1,25 @@
+using System;
+using BookApp.API.Controllers;
+using BookAPP.Api.Utils;
+using BookAPP.Core;
+using BookAPP.Core.Commands;
+using BookAPP.Core.DTOs;
+using BookAPP.Core.Exceptions;
+using BookAPP.Core.Queries;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using BookAPP.Core;
-using BookAPP.Api.Utils;
-using BookAPP.Core.DTOs;
-using BookAPP.Core.Commands;
-using BookAPP.Core.Exceptions;
-using System;
-using BookAPP.Core.Queries;
 
-namespace BookApp.API.Controllers
+namespace BookAPP.API.Controllers
 {
-    [ApiController]
-    public class BooksController : BaseController
+    public class AuthorsController : BaseController
     {
-        private readonly ILogger<BooksController> _logger;
+        private readonly ILogger<AuthorsController> _logger;
         private readonly Message _messages;
-        public BooksController(ILogger<BooksController> logger, Message messages)
+        public AuthorsController(ILogger<AuthorsController> logger, Message messages)
         {
             _logger = logger;
             _messages = messages;
         }
-
 
         /// <summary
         /// Add Book
@@ -29,15 +28,14 @@ namespace BookApp.API.Controllers
         /// <response code="401">Unknown Identity</response>
         /// <response code="403">Unauthorized</response>
 
-        [HttpPost("BookApp/Books")]
+        [HttpPost("BookApp/Authors")]
         [ProducesResponseType(typeof(Envelope), 201)]
         [ProducesResponseType(typeof(Envelope), 400)]
-        public IActionResult AddBook([FromBody] AddBookDTO addBookDTO)
+        public IActionResult AddAuthor([FromBody] AddAuthorDTO addAuthorDTO)
         {
             if (ModelState.IsValid)
             {
-                AddBookCommand addBookCommand = new AddBookCommand(addBookDTO.Title, addBookDTO.AuthorId,
-                addBookDTO.ReleaseYear);
+                AddAuthorCommand addBookCommand = new AddAuthorCommand(addAuthorDTO.Firstname, addAuthorDTO.Lastname);
                 try
                 {
                     var result = _messages.Dispatch(addBookCommand);
@@ -59,20 +57,20 @@ namespace BookApp.API.Controllers
         }
 
         /// <summary
-        /// Get all Books
+        /// Get all Authors
         /// </summary>
         /// <response code="400">Bad request</response> 
         /// <response code="401">Unknown Identity</response>
         /// <response code="403">Unauthorized</response>
 
-        [HttpGet("BookApp/Books")]
+        [HttpGet("BookApp/Authors")]
         [ProducesResponseType(typeof(Envelope), 201)]
         [ProducesResponseType(typeof(Envelope), 400)]
-        public IActionResult GetBooks()
+        public IActionResult GetAuthors()
         {
             if (ModelState.IsValid)
             {
-                GetAllBooksQuery getAllAuthorsQuery = new GetAllBooksQuery();
+                GetAllAuthorsQuery getAllAuthorsQuery = new GetAllAuthorsQuery();
                 try
                 {
                     var result = _messages.Dispatch(getAllAuthorsQuery);
@@ -92,6 +90,5 @@ namespace BookApp.API.Controllers
             }
             return BadRequest();
         }
-
     }
 }
