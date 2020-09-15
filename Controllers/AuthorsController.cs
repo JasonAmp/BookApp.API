@@ -99,7 +99,7 @@ namespace BookAPP.API.Controllers
         /// <response code="401">Unknown Identity</response>
         /// <response code="403">Unauthorized</response>
 
-        [HttpPut("BookApp/Authors/{id}")]
+        [HttpGet("BookApp/Authors/{id}")]
         [ProducesResponseType(typeof(Envelope), 201)]
         [ProducesResponseType(typeof(Envelope), 400)]
         public IActionResult GetAuthor(Guid id)
@@ -172,7 +172,7 @@ namespace BookAPP.API.Controllers
         /// <response code="401">Unknown Identity</response>
         /// <response code="403">Unauthorized</response>
 
-        [HttpPut("BookApp/Author/{id}")]
+        [HttpDelete("BookApp/Author/{id}")]
         [ProducesResponseType(typeof(Envelope), 201)]
         [ProducesResponseType(typeof(Envelope), 400)]
         public IActionResult DeleteAuthor(Guid id)
