@@ -93,5 +93,113 @@ namespace BookApp.API.Controllers
             return BadRequest();
         }
 
+
+        /// <summary
+        /// Update Book
+        /// </summary>
+        /// <response code="400">Bad request</response> 
+        /// <response code="401">Unknown Identity</response>
+        /// <response code="403">Unauthorized</response>
+
+        [HttpPut("BookApp/Books/{id}")]
+        [ProducesResponseType(typeof(Envelope), 201)]
+        [ProducesResponseType(typeof(Envelope), 400)]
+        public IActionResult UpdateBook(Guid id, [FromBody] UpdateBookDTO updateBookDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                UpdateBookCommand updateBookCommand = new UpdateBookCommand(updateBookDTO.Title, updateBookDTO.Genre, updateBookDTO.AuthorId, id, updateBookDTO.ReleaseYear);
+                try
+                {
+                    var result = _messages.Dispatch(updateBookCommand);
+                    return Ok(result);
+                }
+                catch (DomainException ex)
+                {
+                    _logger.LogError(ex.Message);
+                    return Error(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogCritical(ex.Message);
+                    return StatusCode(500);
+                }
+
+            }
+            return BadRequest();
+        }
+
+
+        /// <summary
+        /// Get Book
+        /// </summary>
+        /// <response code="400">Bad request</response> 
+        /// <response code="401">Unknown Identity</response>
+        /// <response code="403">Unauthorized</response>
+
+        [HttpPut("BookApp/Books/{id}")]
+        [ProducesResponseType(typeof(Envelope), 201)]
+        [ProducesResponseType(typeof(Envelope), 400)]
+        public IActionResult GetBook(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                GetBookQuery getBookQuery = new GetBookQuery(id);
+                try
+                {
+                    var result = _messages.Dispatch(getBookQuery);
+                    return Ok(result);
+                }
+                catch (DomainException ex)
+                {
+                    _logger.LogError(ex.Message);
+                    return Error(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogCritical(ex.Message);
+                    return StatusCode(500);
+                }
+
+            }
+            return BadRequest();
+        }
+
+
+                /// <summary
+        /// Update Book
+        /// </summary>
+        /// <response code="400">Bad request</response> 
+        /// <response code="401">Unknown Identity</response>
+        /// <response code="403">Unauthorized</response>
+
+        [HttpPut("BookApp/Books/{id}")]
+        [ProducesResponseType(typeof(Envelope), 201)]
+        [ProducesResponseType(typeof(Envelope), 400)]
+        public IActionResult DeleteBook(Guid id)
+        {
+            if (ModelState.IsValid)
+            {
+                DeleteBookCommand deleteBookCommand = new DeleteBookCommand(id);
+                try
+                {
+                    var result = _messages.Dispatch(deleteBookCommand);
+                    return Ok(result);
+                }
+                catch (DomainException ex)
+                {
+                    _logger.LogError(ex.Message);
+                    return Error(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogCritical(ex.Message);
+                    return StatusCode(500);
+                }
+
+            }
+            return BadRequest();
+        }
+
     }
 }
