@@ -166,7 +166,7 @@ namespace BookApp.API.Controllers
         }
 
 
-                /// <summary
+        /// <summary
         /// Update Book
         /// </summary>
         /// <response code="400">Bad request</response> 
